@@ -158,9 +158,9 @@ def add_other_files_view(request):
         return render(request, 'file/create_file.html',context)
 
 @login_required(login_url="file:login_url")
-def newly_generated_folders_view(request,slug_text):
+def newly_generated_folders_view(request,pk,slug_text):
     q    = models.folder_name.objects.filter(slug = slug_text)
-    form = models.custom_folder_files.objects.filter(folder = slug_text)
+    form = models.custom_folder_files.objects.filter(folder=pk)
     a    = slug_text
     context = {'type':a,'form':form}
     if q.exists():
@@ -170,7 +170,6 @@ def newly_generated_folders_view(request,slug_text):
 
 @login_required(login_url="file:login_url")
 def create_folder_file(request):
-    slug_text = slug_text
     if request.method == 'POST':
         form = forms.Custom_folder_file(request.POST,request.FILES)
         if form.is_valid():
@@ -195,7 +194,7 @@ def download(request,path):
 
 
 @login_required(login_url="file:login_url")
-class Search_View(ListView):
+class searching_files(ListView):
     template_name = 'file/search.html'
     paginate_by = 20
     count = 0
@@ -225,34 +224,46 @@ class Search_View(ListView):
             return qs
         return models.folder_name.objects.none() # just an empty queryset as default
 
-
        #delete files
 @login_required(login_url="file:login_url")
 def delete_file(request,pk):
-    deleting_file = models.user_file.object.get(pk=pk)
+    deleting_file = models.user_file.objects.get(pk=pk)
     deleting_file.delete()
     return redirect("file:files_url")
 
 @login_required(login_url="file:login_url")
-def delete_file(request,pk):
-    deleting_file = models.user_music.object.get(pk=pk)
+def delete_music(request,pk):
+    deleting_file = models.user_music.objects.get(pk=pk)
     deleting_file.delete()
     return redirect("file:music_url")
 
 @login_required(login_url="file:login_url")
-def delete_file(request,pk):
-    deleting_file = models.user_pdf.object.get(pk=pk)
+def delete_pdf(request,pk):
+    deleting_file = models.user_pdf.objects.get(pk=pk)
     deleting_file.delete()
     return redirect("file:pdf_url")
 
 @login_required(login_url="file:login_url")
-def delete_file(request,pk):
-    deleting_file = models.user_image.object.get(pk=pk)
+def delete_image(request,pk):
+    deleting_file = models.user_image.objects.get(pk=pk)
     deleting_file.delete()
     return redirect("file:images_url")
 
 @login_required(login_url="file:login_url")
-def delete_file(request,pk):
-    deleting_file = models.user_anyfile.object.get(pk=pk)
+def delete_other(request,pk):
+    deleting_file = models.user_anyfile.objects.get(pk=pk)
     deleting_file.delete()
     return redirect("file:other_file_type_url")                
+
+@login_required(login_url="file:login_url")
+def delete_generated_folder(request,pk):
+    deleting_file = models.custom_folder_files.objects.get(pk=pk)
+    deleting_file.delete()
+    return redirect('file:home_url')
+    
+
+@login_required(login_url="file:login_url")
+def delete_folder(request,pk):
+    deleting_file = models.folder_name.objects.get(pk=pk)
+    deleting_file.delete()
+    return redirect('file:home_url')

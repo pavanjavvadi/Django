@@ -19,8 +19,7 @@ class post_queryset(models.QuerySet):
         qs = self
         if query is not None:
             or_lookup = Q(title__icontains=query)
-            qs        = qs.filter(or_lookup).distinct()
-            
+            qs        = qs.filter(or_lookup).distinct()   
         return qs
 
 #create your models here.
@@ -47,7 +46,10 @@ class custom_folder_files(models.Model):
 
     def __str__(self):
         return self.title
-
+    
+    def delete(self, *args, **kwargs):
+        self.uploaded_files.delete()
+        super().delete(*args, **kwargs)
 
 class user_file(models.Model):
     user       = models.ForeignKey(User, on_delete=models.CASCADE,null=True)

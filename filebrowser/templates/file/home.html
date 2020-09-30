@@ -44,7 +44,7 @@
             </div>
             {% for feild in form %}  
             <div class="col-sm-1 text-center">
-                <a href="/home/{{feild.slug}}"><img src="{% static 'images/folder_img.jpg' %}" alt="folder image" style="width:100px;height:100px"></a>
+                <a href="/home/{{feild.id}}/{{feild.slug}}"><img src="{% static 'images/folder_img.jpg' %}" alt="folder image" style="width:100px;height:100px"></a><a href="{% url 'file:delete_folder_url' feild.pk %}"><i class="fa fa-trash close"></i></a>
                 <div class="mt-n3">
                     <p>{{ feild.title }}</p>
                 </div>
@@ -52,4 +52,16 @@
             {% endfor %}
         </div>
     </div>  
+    <style>
+       .close {
+          position: absolute;
+          top: 15px;
+          right:30px;
+          z-index: 100;
+          opacity: 0.2;
+      }
+      .close:hover {
+        color: black;
+      }
+      </style>    
 {% endblock %}

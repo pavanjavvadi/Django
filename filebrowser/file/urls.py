@@ -25,8 +25,8 @@ urlpatterns = [
     path('home/images/add_images/',views.add_images_view,name='create_images_url'),
     path('home/others/',views.others_view,name='other_file_type_url'),
     path('home/others/add_other_files',views.add_other_files_view,name='create_other_file_type_url'),
-    path('home/<slug:slug_text>',views.newly_generated_folders_view,name='generated_folders_url'),
-    path('home/search/',views.Search_View.as_view(),name='search_url'),
+    path('home/<int:pk>/<slug:slug_text>/',views.newly_generated_folders_view,name='generated_folders_url'),
+    path('home/search/',views.searching_files.as_view(),name='search_url'),
     path('custom_folder_file/',views.create_folder_file,name='custom_folder_file_url'),
    
 
@@ -48,7 +48,13 @@ urlpatterns = [
     
     re_path(r'^download/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 
-
+    path('delete_file/<int:pk>/',views.delete_file,name="delete_file_url"),
+    path('delete_music/<int:pk>/',views.delete_music,name="delete_music_url"),
+    path('delete_pdf/<int:pk>/',views.delete_pdf,name="delete_pdf_url"),
+    path('delete_image/<int:pk>/',views.delete_image,name="delete_image_url"),
+    path('delete_other/<int:pk>/',views.delete_other,name="delete_other_url"),
+    path('delete_genarated_files/<int:pk>/',views.delete_generated_folder,name="delete_genarated_files_url"),
+    path('delete_folder/<int:pk>/',views.delete_folder,name='delete_folder_url')
     
 
 ]

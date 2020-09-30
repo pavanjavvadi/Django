@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 <head>
-    <title> {% block title %}Create Folder{% endblock %}</title>
+    <title> {% block title %}{{type| capfirst}}{% endblock %}</title>
     {% load static %}
     {% block link%}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -81,35 +81,35 @@
         {% for field in form %}  
         {% if type == 'File' %}
         <div class="col-sm-1 text-center">
-            <div class="img-wrap"><img src="{% static 'images/file_img.png' %}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+            <div class="img-wrap"><img src="{% static 'images/file_img.png' %}" alt="file" style="width:100px;height:100px"><a href="{% url 'file:delete_file_url' field.pk %}"><i class="fa fa-trash close"></i></a></div>
             <div >
                 <p><a href="{{field.fileupload.url}}" download="{{field.fileupload.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}}</p>
             </div>
         </div>
         {% elif type == 'Music' %}
         <div class="col-sm-1 text-center">
-          <div class="img-wrap"><img src="{% static 'images/mp3_img.png' %}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+          <div class="img-wrap"><img src="{% static 'images/mp3_img.png' %}" alt="file" style="width:100px;height:100px"><a href="{% url 'file:delete_music_url' field.pk %}"><i class="fa fa-trash close"></i></a></div>
             <div>
                 <p><a href="{{field.musicupload.url}}" download="{{field.musicupload.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}} </p>
             </div>
         </div>
         {% elif type == 'PDF' %}
         <div class="col-sm-1 text-center">
-          <div class="img-wrap"><img src="{% static 'images/pdf_img.png' %}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+          <div class="img-wrap"><img src="{% static 'images/pdf_img.png' %}" alt="file" style="width:100px;height:100px"><a href="{% url 'file:delete_pdf_url' field.pk %}"><i class="fa fa-trash close"></i></a></div>
             <div>
                 <p><a href="{{field.pdfupload.url}}" download="{{field.pdfupload.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}} </p>
             </div>
         </div>
         {% elif type == 'Images' %}
         <div class="col-sm-1 text-center">
-          <div class="img-wrap"><img src="{{field.imageupload.url}}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+          <div class="img-wrap"><img src="{{field.imageupload.url}}" alt="file" style="width:100px;height:100px"><a href="{% url 'file:delete_image_url' field.pk %}"><i class="fa fa-trash close"></i></a></div>
             <div>
                 <p><a href="{{field.imageupload.url}}" download="{{field.imageupload.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}} </p>
             </div>
         </div>    
         {% elif type == 'Others'%}
         <div class="col-sm-1 text-center">
-          <div class="img-wrap"><img src="{% static 'images/file_img.png' %}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+          <div class="img-wrap"><img src="{% static 'images/file_img.png' %}" alt="file" style="width:100px;height:100px"><a href="{% url 'file:delete_other_url' field.pk %}"><i class="fa fa-trash close"></i></a></div>
             <div>
                 <p><a href="{{field.anyfileType.url}}" download="{{field.anyfileType.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}}</p>
             </div>
@@ -117,7 +117,7 @@
         
         {% else %}
         <div class="col-sm-1 text-center">
-          <div class="img-wrap"><img src="{% static 'images/file_img.png' %}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+          <div class="img-wrap"><img src="{% static 'images/file_img.png' %}" alt="file" style="width:100px;height:100px"><a href="{% url 'file:delete_genarated_files_url' field.pk %}"><i class="fa fa-trash close"></i></a></div>
             <div>
                 <p><a href="{{field.uploaded_files.url}}" download="{{field.uploaded_files.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}}</p>
             </div>
