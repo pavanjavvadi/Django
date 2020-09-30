@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+<head>
+    <title> {% block title %}Create Folder{% endblock %}</title>
+</head>
+{% block content %}
+{% include 'navbar.html' %}
+<br>
+<div class="ml-3">
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.title}}<br>
+    <input type="submit" class="btn btn-sm btn-primary mt-2" value="Create">
+</form>
+
+<script>
+var form_fields = document.getElementsByTagName('input')
+form_fields[2].placeholder='Folder Name';
+</script>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+<head>
+  {% load static %}
+  {% block link%}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  {% endblock %}
+</head>
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="{% url 'file:home_url' %}">File Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'file:home_url' %}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        {% if create_folder %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'file:create_folder_url' %}">Create Folder</a>
+        </li>
+        {% endif %}
+        <form class="form-inline" method="GET" action="{% url 'file:search_url' %}">
+        
+          <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search">
+          <button class="btn btn-xs btn-success my-2 my-sm-0" type="submit">Search</button>
+        </form>     
+    </div>
+    <span class="navbar-text">
+      <span class="mr-2 text-dark"><strong>{{ request.user|capfirst }}</strong></span>
+      <span><a href="{% url 'file:logout_url' %}" style="color:maroon;text-decoration:none"><strong>Logout</strong></a></span>
+    </span>
+    </nav>
+{% endblock %}

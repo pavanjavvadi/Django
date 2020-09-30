@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+<head>
+    <title> {% block title %}Create Folder{% endblock %}</title>
+    {% load static %}
+    {% block link%}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% endblock %}
+  </head>
+
+{% block content %}
+{% include 'navbar.html' %}
+<div>
+    {% if type == 'File'%}
+    <a class = "float-right mr-1" href="{% url 'file:create_file_url' %}"><button class="btn btn-sm btn-primary">Add File</button></a>
+  
+    {% elif type == 'Music'%}
+    <a class = "float-right mr-1" href="{% url 'file:create_music_url' %}"><button class="btn btn-sm btn-primary">Add File</button></a>
+
+    {% elif type == 'Images'%}
+    <a class = "float-right mr-1" href="{% url 'file:create_images_url' %}"><button class="btn btn-sm btn-primary">Add File</button></a>
+
+    {% elif type == 'PDF'%}
+    <a class = "float-right mr-1" href="{% url 'file:create_pdf_url' %}"><button class="btn btn-sm btn-primary">Add File</button></a>
+
+    {% elif type == 'Others'%}
+    <a class = "float-right mr-1" href="{% url 'file:create_other_file_type_url' %}"><button class="btn btn-sm btn-primary">Add File</button></a>
+    
+    {% else %}
+    <a class = "float-right mr-1" href="{% url 'file:custom_folder_file_url' %}"><button class="btn btn-sm btn-primary">Add File</button></a> 
+    
+    {% endif %}
+    <h3 class="mt-1 text-center ">{{type | capfirst}}</h3>
+</div>    
+<!-- <table class="table">
+    <thead class="thead-dark">
+      <tr>
+      <th>Name</th>
+      <th>Download</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for field in form %}
+      <tr>
+        {% if type == 'File'%}
+        <td><img src="{% static 'images/file_img.png' %}" alt="file-image" style="width:20px;height:20px"> {{field.title}}</td>
+        <td><a href="{{field.fileupload.url}}" download="{{field.fileupload.url}}">Download</a></td>
+        
+
+        {% elif type == 'Music'%}
+        <td><img src="{% static 'images/mp3_img.png' %}" alt="file-image" style="width:20px;height:20px"> {{field.title}}</td>
+        <td><a href="{{field.musicupload.url}}" download="{{field.musicupload.url}}">Download</a></td>
+        
+
+        {% elif type == 'PDF'%}
+        <td><img src="{% static 'images/pdf_img.png' %}" alt="file-image" style="width:20px;height:20px"> {{field.title}}</td>
+        <td><a href="{{field.pdfupload.url}}" download="{{field.pdfupload.url}}">Download</a></td>
+        
+
+        {% elif type == 'Images'%}
+        <td><img src="{{field.imageupload.url}}" alt="file-image" style="width:20px;height:20px"> {{field.title}}</td>
+        <td><a href="{{field.imageupload.url}}" download="{{field.imageupload.url}}">Download</a></td>
+        
+        
+
+        {% elif type == 'Others'%}
+        <td><img src="{% static 'images/file_img.png' %}" alt="file-image" style="width:20px;height:20px"> {{field.title}}</td>
+        <td><a href="{{field.anyfileType.url}}" download="{{field.anyfileType.url}}">Download</a></td>
+        
+        {% else %}
+        <p>this is a sample</p>
+        {% endif %}
+      </tr>
+        {% endfor %}
+    </tbody>
+  </table>  -->
+
+
+  <!-- grid view -->
+  <div class="container-fluid">
+    <div class="row">
+        {% for field in form %}  
+        {% if type == 'File' %}
+        <div class="col-sm-1 text-center">
+            <div class="img-wrap"><img src="{% static 'images/file_img.png' %}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+            <div >
+                <p><a href="{{field.fileupload.url}}" download="{{field.fileupload.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}}</p>
+            </div>
+        </div>
+        {% elif type == 'Music' %}
+        <div class="col-sm-1 text-center">
+          <div class="img-wrap"><img src="{% static 'images/mp3_img.png' %}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+            <div>
+                <p><a href="{{field.musicupload.url}}" download="{{field.musicupload.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}} </p>
+            </div>
+        </div>
+        {% elif type == 'PDF' %}
+        <div class="col-sm-1 text-center">
+          <div class="img-wrap"><img src="{% static 'images/pdf_img.png' %}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+            <div>
+                <p><a href="{{field.pdfupload.url}}" download="{{field.pdfupload.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}} </p>
+            </div>
+        </div>
+        {% elif type == 'Images' %}
+        <div class="col-sm-1 text-center">
+          <div class="img-wrap"><img src="{{field.imageupload.url}}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+            <div>
+                <p><a href="{{field.imageupload.url}}" download="{{field.imageupload.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}} </p>
+            </div>
+        </div>    
+        {% elif type == 'Others'%}
+        <div class="col-sm-1 text-center">
+          <div class="img-wrap"><img src="{% static 'images/file_img.png' %}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+            <div>
+                <p><a href="{{field.anyfileType.url}}" download="{{field.anyfileType.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}}</p>
+            </div>
+        </div>
+        
+        {% else %}
+        <div class="col-sm-1 text-center">
+          <div class="img-wrap"><img src="{% static 'images/file_img.png' %}" alt="file" style="width:100px;height:100px"><a href="#"><i class="fa fa-trash close"></i></a></div>
+            <div>
+                <p><a href="{{field.uploaded_files.url}}" download="{{field.uploaded_files.url}}"><img src="{% static 'images/download_icon.png' %}" alt="download" style="widows:20px;height:20px;"></a>{{field.title}}</p>
+            </div>
+        </div>
+
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>  
+<style>
+  .img-wrap {
+    position: relative;
+}
+.img-wrap .close {
+    position: absolute;
+    top: 2px;
+    right:15px;
+    z-index: 100;
+    opacity: 0.2;
+}
+.img-wrap .close:hover {
+  color: black;
+}
+</style>
+{% endblock %}

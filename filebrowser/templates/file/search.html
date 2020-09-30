@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load class_name %}
+<head>
+    <title> {% block title %} searching {% endblock %}</title>
+    {% load static %}
+    {% block link%}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% endblock %}
+  </head>
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class='row title-row my-5'>
+    <div class='col-12 py-0'>
+        <h3 class='my-0 py-0'>{{ count }} results for <b>{{ query }}</b></h3>
+    </div>
+</div>
+        
+        
+{% for object in object_list %}
+    {% with object|class_name as klass %}
+        {% if klass == 'folder_name' %}
+            <div class='row'>
+                <div class='col-12'>
+                  Folder Name: <a href='{% url "file:home_url" %}'>{{ object.title }}</a>
+                </div>
+            </div>
+
+        {% elif klass == 'user_file' %}
+            <div class='row'>
+                <div class='col-12'>
+                    File: <a href='{% url "file:files_url" %}'>{{ object.title }}</a>
+                </div>
+            </div>
+        
+        {% elif klass == 'user_music' %}
+            <div class='row'>
+                <div class='col-12'>
+                    MUsic: <a href='{% url "file:music_url" %}'>{{ object.title }}</a>
+                </div>
+            </div>
+        {% elif klass == 'user_pdf' %}
+            <div class='row'>
+                <div class='col-12'>
+                    PDF: <a href='{% url "file:pdf_url" %}'>{{ object.title }}</a>
+                </div>
+             </div>
+             
+        {% elif klass == 'user_image' %}
+            <div class='row'>
+                <div class='col-12'>
+                   Image: <a href='{% url "file:images_url" %}'>{{ object.title }}</a>
+                </div>
+            </div>
+            
+        {% elif klass == 'user_anyfile' %}
+            <div class='row'>
+                <div class='col-12'>
+                   Files: <a href='{% url "file:other_file_type_url" %}'>{{ object.title }}</a>
+                </div>
+            </div>     
+
+        {% else %}
+            <div class='row'>
+             <div class='col-12 col-lg-8 offset-lg-4'>
+                <a href='{{ object.get_absolute_url }}'>{{ object }} | {{ object|class_name }}</a>
+            </div>
+           </div>
+
+        {% endif %}
+        
+    {% endwith %}
+    
+{% empty %}
+<div>
+    <h3 class="mt-n4">No results found</h3>
+</div>
+{% endfor %}
+{% endblock content %}

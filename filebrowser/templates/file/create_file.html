@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+<head>
+    <title> {% block title %}Add File{% endblock %}</title>
+</head>
+{% block content %}
+{% include 'navbar.html' %}
+<br>
+<div class="ml-3">
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn btn-sm btn-primary mt-n2" value="Add File">
+</form>
+{% endblock %}

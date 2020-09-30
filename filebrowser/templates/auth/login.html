@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+<head>
+    <title> {% block title %}Login{% endblock %}</title>
+    {% load static %}
+    {% block link%}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% endblock %}
+</head>
+
+{% block content %}
+
+<div class="login-containers">
+        <div class="login-form">
+            <h3> Login </h3>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control widthbar" name="username" placeholder="Your Email *"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control widthbar" name="password" placeholder="Your Password *"/>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btnSubmit" value="Login" />
+                </div>
+                <div class="form-group">
+                 <p><small>Create a new account</small>    <a href="{% url 'file:register_url' %}" class="signup">SignUp</a></p>
+                </div>
+                <small><a href="{% url 'file:reset_password' %}" class="text-primary" style="text-decoration:none">Forgot Password?</a></small>
+                {% for message in messages %}
+                <p class='text-center text-danger'>{{message}}</p>
+                {% endfor %}
+            </form>
+        </div>
+   
+</div>    
+{% endblock %}
+

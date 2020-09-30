@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+<head>
+    <title> {% block title %}Home page{% endblock %}</title>
+    {% load static %}
+    {% block link%}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% endblock %}
+</head>
+
+{% block content %}
+{% include 'navbar.html' %}
+   <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-1 text-center">
+                <a href="{% url 'file:files_url' %}"><img src="{% static 'images/folder_img.jpg' %}" alt="folder image" style="width:100px;height:100px"></a>
+                <div class="mt-n3">
+                    <p>Files</p>
+                </div>
+            </div>
+            <div class="col-sm-1 text-center">
+                <a href="{% url 'file:music_url' %}"><img src="{% static 'images/folder_img.jpg' %}" alt="folder image" style="width:100px;height:100px"></a>
+                <div class="mt-n3">
+                    <p>Music</p>
+                </div>
+            </div>
+            <div class="col-sm-1 text-center">
+                <a href="{% url 'file:images_url' %}"><img src="{% static 'images/folder_img.jpg' %}" alt="folder image" style="width:100px;height:100px"></a>
+                <div class="mt-n3">
+                    <p>Images</p>
+                </div>
+            </div>
+            <div class="col-sm-1 text-center">
+                <a href="{% url 'file:pdf_url' %}"><img src="{% static 'images/folder_img.jpg' %}" alt="folder image" style="width:100px;height:100px"></a>
+                <div class="mt-n3">
+                    <p>PDF</p>
+                </div>
+            </div>    
+            <div class="col-sm-1 text-center">
+                <a href="{% url 'file:other_file_type_url' %}"><img src="{% static 'images/folder_img.jpg' %}" alt="folder image" style="width:100px;height:100px"></a>
+                <div class="mt-n3" >
+                    <p>Others</p>
+                </div>
+            </div>
+            {% for feild in form %}  
+            <div class="col-sm-1 text-center">
+                <a href="/home/{{feild.slug}}"><img src="{% static 'images/folder_img.jpg' %}" alt="folder image" style="width:100px;height:100px"></a>
+                <div class="mt-n3">
+                    <p>{{ feild.title }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>  
+{% endblock %}
